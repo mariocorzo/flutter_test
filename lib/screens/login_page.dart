@@ -75,6 +75,26 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Widget _SubmitButton() {
+    if (_formMode == FormMode.SIGNIN) {
+      return new Padding(
+        padding: EdgeInsets.symmetric(vertical: 16.0),
+        child: new Material(
+          borderRadius: BorderRadius.circular(30.0),
+          shadowColor: Colors.blueAccent.shade100,
+          elevation: 5.0,
+          child: new MaterialButton(
+              minWidth: 200.0,
+              height: 42.0,
+              color: Colors.blue,
+              child: new Text('Login',
+                style: new TextStyle(fontsi),
+              ),
+              onPressed: null),
+        ),
+      );
+    }
+  }
 
 }
 enum FormMode { SIGNIN, SIGNUP }
