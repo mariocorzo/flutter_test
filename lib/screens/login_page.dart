@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => new _LoginPageState()
+  State<StatefulWidget> createState() => new _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  FormMode _formMode = FormMode.SIGNIN;
+  final formKey = new GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    var formKey;
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Flutter Login Demo"),
@@ -20,6 +23,15 @@ class _LoginPageState extends State<LoginPage> {
             child: new ListView(
               shrinkWrap: true,
               children: <Widget>[
+                _sizedBox(50.0),
+                _logo(),
+                _sizedBox(100.0),
+                _emailInput(),
+                _sizedBox(15.0),
+                _passwordInput(),
+                _sizedBox(15.0),
+                _submitButton(),
+                _label()
               ],
             )),
       ),
@@ -75,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _SubmitButton() {
+  Widget _submitButton() {
     if (_formMode == FormMode.SIGNIN) {
       return new Padding(
           padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -111,6 +123,34 @@ class _LoginPageState extends State<LoginPage> {
   void validateAndSubmit() {
   }
 
+  Widget _label(){
+    if(_formMode == FormMode.SIGNIN){
+      return new FlatButton(onPressed: _signIn, child: new Text(
+        'Create an account',
+        style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300),
+      ));
+    }else{
+      return new FlatButton(onPressed: _signUp, child: new Text('Have an account? Sign in',style: new TextStyle(
+        fontSize: 18.0, fontWeight: FontWeight.w300
+      ),));
+    }
+  }
+
+  void _signUp(){
+    formKey.currentState.reset();
+    setState((){
+      _formMode = FormMode.SIGNUP;
+    });
+  }
+
+  void _signIn(){
+    formKey.currentState.reset();
+    setState((){
+      _formMode = FormMode.SIGNIN;
+    });
+  }
+
+  
 
 }
 enum FormMode { SIGNIN, SIGNUP }
