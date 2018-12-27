@@ -1,55 +1,32 @@
-// Copyright 2017 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:flutter/material.dart';
 
-import 'tabs_page.dart';
+//
+//class HomeScreen extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return Scaffold(
+//      appBar: AppBar(
+//        title: Text("HomeScreen"),
+//      ),
+//    );
+//  }
+//}
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
-  static FirebaseAnalyticsObserver observer =
-      FirebaseAnalyticsObserver(analytics: analytics);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Firebase Analytics Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      navigatorObservers: <NavigatorObserver>[observer],
-      home: MyHomePage(
-        title: 'Firebase Analytics Demo',
-        analytics: analytics,
-        observer: observer,
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title, this.analytics, this.observer})
-      : super(key: key);
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key key, this.title, this.analytics, this.observer}) : super(key: key);
 
   final String title;
   final FirebaseAnalytics analytics;
   final FirebaseAnalyticsObserver observer;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState(analytics, observer);
+  _HomeScreenState createState() => new _HomeScreenState(analytics, observer);
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  _MyHomePageState(this.analytics, this.observer);
+class _HomeScreenState extends State<HomeScreen> {
+  _HomeScreenState(this.analytics, this.observer);
 
   final FirebaseAnalyticsObserver observer;
   final FirebaseAnalytics analytics;
@@ -271,58 +248,65 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+//    _goToLoginScreen();
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: <Widget>[
-          MaterialButton(
-            child: const Text('Test logEvent'),
-            onPressed: _sendAnalyticsEvent,
+        appBar: AppBar(
+          title: Text("HomeScreen"),
+        ),
+        body: Center(
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: _goToLoginScreen,
+                  child: Text("LOGIN SCREEN"),
+                ),
+                MaterialButton(
+                  child: const Text('Test logEvent'),
+                  onPressed: _sendAnalyticsEvent,
+                ),
+//                MaterialButton(
+//                  child: const Text('Test standard event types'),
+//                  onPressed: _testAllEventTypes,
+//                ),
+//                MaterialButton(
+//                  child: const Text('Test setUserId'),
+//                  onPressed: _testSetUserId,
+//                ),
+//                MaterialButton(
+//                  child: const Text('Test setCurrentScreen'),
+//                  onPressed: _testSetCurrentScreen,
+//                ),
+//                MaterialButton(
+//                  child: const Text('Test setAnalyticsCollectionEnabled'),
+//                  onPressed: _testSetAnalyticsCollectionEnabled,
+//                ),
+//                MaterialButton(
+//                  child: const Text('Test setMinimumSessionDuration'),
+//                  onPressed: _testSetMinimumSessionDuration,
+//                ),
+//                MaterialButton(
+//                  child: const Text('Test setSessionTimeoutDuration'),
+//                  onPressed: _testSetSessionTimeoutDuration,
+//                ),
+//                MaterialButton(
+//                  child: const Text('Test setUserProperty'),
+//                  onPressed: _testSetUserProperty,
+//                ),
+//                Text(_message, style: const TextStyle(color: Color.fromARGB(255, 0, 155, 0))),
+              ],
+            ),
           ),
-          MaterialButton(
-            child: const Text('Test standard event types'),
-            onPressed: _testAllEventTypes,
-          ),
-          MaterialButton(
-            child: const Text('Test setUserId'),
-            onPressed: _testSetUserId,
-          ),
-          MaterialButton(
-            child: const Text('Test setCurrentScreen'),
-            onPressed: _testSetCurrentScreen,
-          ),
-          MaterialButton(
-            child: const Text('Test setAnalyticsCollectionEnabled'),
-            onPressed: _testSetAnalyticsCollectionEnabled,
-          ),
-          MaterialButton(
-            child: const Text('Test setMinimumSessionDuration'),
-            onPressed: _testSetMinimumSessionDuration,
-          ),
-          MaterialButton(
-            child: const Text('Test setSessionTimeoutDuration'),
-            onPressed: _testSetSessionTimeoutDuration,
-          ),
-          MaterialButton(
-            child: const Text('Test setUserProperty'),
-            onPressed: _testSetUserProperty,
-          ),
-          Text(_message,
-              style: const TextStyle(color: Color.fromARGB(255, 0, 155, 0))),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.tab),
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute<TabsPage>(
-                settings: const RouteSettings(name: TabsPage.routeName),
-                builder: (BuildContext context) {
-                  return TabsPage(observer);
-                }));
-          }),
-    );
+        ));
+  }
+
+  void _goToLoginScreen() {
+    Navigator.pushNamed(context, "/login");
   }
 }
