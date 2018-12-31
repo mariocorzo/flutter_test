@@ -2,31 +2,19 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 
-//
-//class HomeScreen extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//      appBar: AppBar(
-//        title: Text("HomeScreen"),
-//      ),
-//    );
-//  }
-//}
-
-class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key, this.title, this.analytics, this.observer}) : super(key: key);
+class HomeScreenBackup extends StatefulWidget {
+  HomeScreenBackup({Key key, this.title, this.analytics, this.observer}) : super(key: key);
 
   final String title;
   final FirebaseAnalytics analytics;
   final FirebaseAnalyticsObserver observer;
 
   @override
-  _HomeScreenState createState() => new _HomeScreenState(analytics, observer);
+  _HomeScreenBackupState createState() => new _HomeScreenBackupState(analytics, observer);
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  _HomeScreenState(this.analytics, this.observer);
+class _HomeScreenBackupState extends State<HomeScreenBackup> {
+  _HomeScreenBackupState(this.analytics, this.observer);
 
   final FirebaseAnalyticsObserver observer;
   final FirebaseAnalytics analytics;

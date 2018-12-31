@@ -9,7 +9,10 @@ class LoginScreen extends StatelessWidget {
       ),
       body: Center(
           child: Container(
-              child: RaisedButton(onPressed: () => _goToHomeScreen(context), child: Text("HOME"),)
+              child: RaisedButton(
+                onPressed: () => _goToHomeScreen(context),
+                child: Text("HOME"),
+              )
           )
       ),
     );
