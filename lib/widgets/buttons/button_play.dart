@@ -34,20 +34,20 @@ class _PlayButtonState extends State<PlayButton> {
   }
 
   Widget _buildPlayButton() {
-    return FloatingActionButton(
-      onPressed: _onRecordButtonPressed,
+    return FlatButton(
+      onPressed: _onPlayButtonPressed,
       child: Icon(Icons.play_arrow),
     );
   }
 
   Widget _buildStopButton() {
-    return FloatingActionButton(
+    return FlatButton(
       onPressed: _onStopButtonPressed,
       child: Icon(Icons.stop),
     );
   }
 
-  void _onRecordButtonPressed() {
+  void _onPlayButtonPressed() {
     widget.onPlayButtonPress();
     setState(() {
       _playState = PlayState.PLAYING;
