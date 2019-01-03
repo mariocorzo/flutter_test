@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class RecordButton extends StatefulWidget {
+  void Function() onRecordButtonPress;
+  void Function() onStopRecordButtonPress;
+
+  RecordButton({this.onRecordButtonPress, this.onStopRecordButtonPress});
+
   @override
   _RecordButtonState createState() => new _RecordButtonState();
 }
@@ -43,12 +48,14 @@ class _RecordButtonState extends State<RecordButton> {
   }
 
   void _onRecordButtonPressed() {
+    widget.onRecordButtonPress();
     setState(() {
       _recordState = RecordState.RECORDING;
     });
   }
 
   void _onStopButtonPressed() {
+    widget.onStopRecordButtonPress();
     setState(() {
       _recordState = RecordState.STOPPED;
     });
