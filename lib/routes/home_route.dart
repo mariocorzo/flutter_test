@@ -11,24 +11,34 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Container(
           child: Center(
-            child: Column(
-              children: <Widget>[
-                RaisedButton(
-                  child: Text("Grabar"),
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/record");
-                  },
-                ),
-                RaisedButton(
-                  child: Text("Ver Archivos Grabados"),
-                  onPressed: () {bloc.blocAdd.add(22);},),
-                RaisedButton(
-                  child: Text("Administrar Carpetas"),
-                  onPressed: () {},),
-              ],
+        child: Column(
+          children: <Widget>[
+            RaisedButton(
+              child: Text("Grabar"),
+              onPressed: () {
+                Navigator.pushNamed(context, "/record");
+              },
             ),
-          )
-      ),
+            RaisedButton(
+              child: Text("Ver Archivos Grabados"),
+              onPressed: () {
+                bloc.blocAdd.add(22);
+              },
+            ),
+            RaisedButton(
+              child: Text("Administrar Carpetas"),
+              onPressed: () {},
+            ),
+            StreamBuilder<int>(
+              stream: bloc.count,
+              initialData: 0,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                return Text(snapshot.data.toString());
+              },
+            )
+          ],
+        ),
+      )),
     );
   }
 }
