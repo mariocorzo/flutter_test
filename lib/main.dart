@@ -5,6 +5,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_module_tests/blocs/bloc_provider_test.dart';
 import 'package:flutter_module_tests/routes/home_route.dart';
 import 'package:flutter_module_tests/routes/record_route.dart';
 
@@ -19,14 +20,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'MyUTN',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return BlocProviderTest(
+      child: MaterialApp(
+        title: 'MyUTN',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        navigatorObservers: <NavigatorObserver>[observer],
+        home: HomeScreen(),
+        routes: {'/record': (context) => RecordScreen()},
       ),
-      navigatorObservers: <NavigatorObserver>[observer],
-      home: HomeScreen(),
-      routes: {'/record': (context) => RecordScreen()},
     );
   }
 }

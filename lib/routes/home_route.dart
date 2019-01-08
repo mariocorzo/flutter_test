@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_module_tests/blocs/bloc_provider_test.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProviderTest.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Home"),
@@ -19,7 +21,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 RaisedButton(
                   child: Text("Ver Archivos Grabados"),
-                  onPressed: () {},),
+                  onPressed: () {bloc.blocAdd.add(22);},),
                 RaisedButton(
                   child: Text("Administrar Carpetas"),
                   onPressed: () {},),

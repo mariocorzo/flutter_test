@@ -37,6 +37,7 @@ class RecordScreenState extends State<RecordScreen> {
         body: Column(
           children: <Widget>[
             Expanded(child: Text("Lista de todas las grabaciones")),
+            FlatButton(child: Text("Testear"),onPressed: _buttonTest),
             Container(
               height: 1.0,
               color: Colors.black,
@@ -137,5 +138,8 @@ class RecordScreenState extends State<RecordScreen> {
     } catch (err) {
       print('error: $err');
     }
+  }
+
+  void _buttonTest() {
   }
 }
