@@ -16,6 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_analytics: ^0.3.3
+  firebase_auth: ^0.6.6
   flutter_sound: ^1.2.1
   intl: ^0.15.7
   rxdart: ^0.20.0
@@ -26,9 +27,9 @@ dependencies:
 
 
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
+#dev_dependencies:
+#  flutter_test:
+#    sdk: flutter
 
 
 # For information on the generic Dart part of this file, see the

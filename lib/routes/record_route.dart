@@ -36,7 +36,7 @@ class RecordScreenState extends State<RecordScreen> {
         ),
         body: Column(
           children: <Widget>[
-            Expanded(child: Text("Lista de todas las grabaciones")),
+            Expanded(child: Text("Lista de grabaciones recientes")),
             FlatButton(child: Text("Testear"),onPressed: _buttonTest),
             Container(
               height: 1.0,

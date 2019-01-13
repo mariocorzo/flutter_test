@@ -4,10 +4,15 @@
 
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_module_tests/blocs/bloc_provider_test.dart';
+import 'package:flutter_module_tests/config/Configuration.dart';
 import 'package:flutter_module_tests/routes/home_route.dart';
+import 'package:flutter_module_tests/routes/login_route.dart';
 import 'package:flutter_module_tests/routes/record_route.dart';
+import 'package:flutter_module_tests/routes/splash_route.dart';
+import 'package:flutter_module_tests/services/authentication.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,8 +20,9 @@ void main() {
 
 class MyApp extends StatelessWidget {
   static FirebaseAnalytics analytics = FirebaseAnalytics();
-  static FirebaseAnalyticsObserver observer =
-  FirebaseAnalyticsObserver(analytics: analytics);
+  static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(analytics: analytics);
+
+  final BaseAuth _auth = FirebaseAuthentication();
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +33,33 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         navigatorObservers: <NavigatorObserver>[observer],
-        home: HomeScreen(),
-        routes: {'/record': (context) => RecordScreen()},
+        home: _getInitialScreen(),
+        routes: {'/splash': (context) => SplashScreen(), '/home': (context) => HomeScreen(), '/record': (context) => RecordScreen()},
       ),
     );
   }
+
+  _getInitialScreen() {
+    return Configuration.getInitialScreen();
+  }
+
+  Widget _getInitialScreen1() {
+    return new StreamBuilder<FirebaseUser>(
+      stream: _auth.observeAuthState(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        print("FLUTTER TEST FIREBASEAUTH CONNECTION STATE ==>  ${snapshot.connectionState}");
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SplashScreen();
+        } else {
+          if (snapshot.hasData) {
+//            return MainScreen(firestore: firestore, uuid: snapshot.data.uid);
+          print(snapshot.data);
+            return HomeScreen();
+          }
+          return LoginScreen();
+        }
+      },
+    );
+  }
+
 }
-
-
