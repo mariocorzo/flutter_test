@@ -46,7 +46,6 @@ class RecordScreenState extends State<RecordScreen> {
                 future: _getFiles(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
-                    print("SNAPSHOT HAS DATA");
                     List items = snapshot.data;
                     items = items.reversed.toList();
                     return Expanded(
@@ -54,7 +53,16 @@ class RecordScreenState extends State<RecordScreen> {
                           itemCount: items.length,
                           itemBuilder: (BuildContext context, int index) {
                             print(items[index].path);
-                            return Text(items[index].path.toString());
+                            return Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                _buildPlayButton,
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(items[index].path.split("/").last, style: TextStyle(fontSize: 20),),
+                                ),
+                              ],
+                            );
                           }),
                     );
                   } else {
@@ -79,15 +87,12 @@ class RecordScreenState extends State<RecordScreen> {
                       alignment: FractionalOffset.bottomCenter,
                       child: Container(child: RecordButton(onRecordButtonPress: _onRecordButtonPress, onStopRecordButtonPress: _onStopRecordButtonPress)))),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                  child: Align(
-                      alignment: FractionalOffset.bottomCenter,
-                      child: Container(child: PlayButton(onPlayButtonPress: _onPlayButtonPress, onStopButtonPress: _onStopPlayButtonPress)))),
-            ),
           ],
         ));
+  }
+
+  Widget get _buildPlayButton {
+    return PlayButton(onPlayButtonPress: _onPlayButtonPress, onStopButtonPress: _onStopPlayButtonPress);
   }
 
   void _onRecordButtonPress() async {
@@ -165,6 +170,6 @@ class RecordScreenState extends State<RecordScreen> {
 
   Future<List<FileSystemEntity>> _getFiles() async {
     var externalStorageDirectory = await getExternalStorageDirectory();
-    return externalStorageDirectory.list().where((entity)=> entity is File).toList();
+    return externalStorageDirectory.list().where((entity) => entity is File).toList();
   }
 }

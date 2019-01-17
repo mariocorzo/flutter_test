@@ -21,7 +21,7 @@ class _PlayButtonState extends State<PlayButton> {
 
   @override
   Widget build(BuildContext context) {
-    return new Container(child: _buildButton());
+    return _buildButton();
   }
 
   Widget _buildButton() {
@@ -34,10 +34,14 @@ class _PlayButtonState extends State<PlayButton> {
   }
 
   Widget _buildPlayButton() {
-    return FlatButton(
-      onPressed: _onPlayButtonPressed,
-      child: Icon(Icons.play_arrow),
-    );
+//    return Container(
+//      color: Colors.lightBlue,
+//      child: IconButton(
+//        icon: Icon(Icons.play_arrow),
+//        onPressed: _onPlayButtonPressed,
+//      ),
+//    );
+    return Center(child: SizedBox(height: 35, width: 38, child: IconButton(padding: EdgeInsets.all(0),icon: Icon(Icons.play_arrow), onPressed: _onPlayButtonPressed)));
   }
 
   Widget _buildStopButton() {
